@@ -1,6 +1,6 @@
 ---
 title: "MATH 216 Homework 1"
-author: "WRITE YOUR NAME HERE"
+author: "Paul Suberu"
 output: html_document
 ---
 
@@ -36,10 +36,10 @@ states <- read.csv("data/states.csv", stringsAsFactors = FALSE) %>%
 
 Please indicate
 
-* Who you collaborated with:
-* Roughly how much time you spent on this HW:
-* What gave you the most trouble:
-* Any comments you have:
+* Who you collaborated with:Kyler Blodgett
+* Roughly how much time you spent on this HW:6 hours roughly
+* What gave you the most trouble:Translating the graphs from paper and though into programming language was the hardest part for me. Many of the graphs didn't come out the way I wanted.
+* Any comments you have: I still need to clean up my graphs and make them legible
 
 
 
@@ -55,7 +55,16 @@ Please indicate
 ```{r, echo=FALSE, message=FALSE, fig.width=12, fig.height=6}
 
 ```
+flights1<-group_by(flights,date)%>%
+tally()
+flights2<-group_by(flights,date)%>%
+filter(dep_delay>30)%>%
+tally()
+flights2a<-right_join(flights1, flights2, by="date")%>%
+mutate(propotion =n.y/n.x)
+ggplot(data=flights2a,aes(x=date,y=propotion))+geom_bar(stat="identity") 
 
+The X-axis is the date, the Y axis denotes the frequency of flights that were missed.  
 
 
 
@@ -68,8 +77,10 @@ they tend to have more room.  Which airlines should these people favor?
 ```{r, echo=FALSE, fig.width=12, fig.height=6}
 
 ```
+flights3 <- merge(flights,planes, by="plane")
+ggplot(data=flights3,aes(x=year,y=mfr))+geom_point()
 
-
+The x-axis shows the year and the y-axis shows the model of airplane. Each dot reresents a year in which an airplane model was created. For people who live older airplanes. The cessena has the oldest model. 
 
 
 
@@ -84,7 +95,7 @@ they tend to have more room.  Which airlines should these people favor?
 ```{r, echo=FALSE, message=FALSE, fig.width=12, fig.height=6}
 
 ```
-
+Ideally I would have the frequency on the y axis, and the states on the x axis and would plot that. I haven't gotten to the code for it yet. 
 
 
 
@@ -97,12 +108,15 @@ What weather patterns are associated with the biggest departure delays?
 
 ```
 
+flights5a<-full_join(weather,flights,by ="date")
+ggplot(data=flights5a,aes(x=temp,y=dep_delay))+geom_point()
+ggplot(data=flights5a,aes(x=temp,y=dep_delay))+geom_point()
 
+Here is a grpah of one weather pattern that will cause 
 
 
 
 ## Question 5:
-
 I want to know what proportionately regions (NE, south, west, midwest) each 
 carrier flies to from Houston in the month of July.  Consider the `month()`
 function from the `lubridate` package.
@@ -110,3 +124,4 @@ function from the `lubridate` package.
 ```{r, echo=FALSE, message=FALSE, fig.width=12, fig.height=6}
 
 ```
+I wasn't able to code number 5. Ideally I would have the frequency on the y-axis and the carriers on the x-axis with the propotions for the regions color coded as a bar graph.
