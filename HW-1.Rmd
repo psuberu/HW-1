@@ -59,7 +59,9 @@ flights2a<-right_join(flights1, flights2, by="date")%>%
 mutate(propotion =n.y/n.x)
 ggplot(data=flights2a,aes(x=date,y=propotion))+geom_bar(stat="identity") 
 ```
+
 The X-axis is the date, the Y axis denotes the frequency of flights that were missed.  
+
 
 ## Question 2:
 
@@ -71,6 +73,7 @@ flights3 <- full_join(flights,planes, by="plane")
 ggplot(data=flights3,aes(x=year,y=mfr))+geom_point()
 ```
 The x-axis shows the year and the y-axis shows the model of airplane. Each dot reresents a year in which an airplane model was created. For people who live older airplanes. The cessena has the oldest model. 
+
 
 ## Question 3:
 
